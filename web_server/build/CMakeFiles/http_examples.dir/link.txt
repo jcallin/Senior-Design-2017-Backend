@@ -1,0 +1,1 @@
+/usr/bin/c++    -std=c++11 -Wall -Wextra -DHAVE_OPENSSL   CMakeFiles/http_examples.dir/http_examples.cpp.o  -o http_examples -rdynamic -lboost_system -lboost_thread -lboost_filesystem -lboost_date_time -lboost_chrono -lboost_atomic -lpthread -lpthread -lssl -lcrypto 
