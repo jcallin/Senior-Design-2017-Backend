@@ -8,6 +8,7 @@
 
 //Added for the default_resource example
 #include <fstream>
+#include <iostream>
 #include <boost/filesystem.hpp>
 #include <vector>
 #include <algorithm>
@@ -21,6 +22,8 @@ using namespace boost::property_tree;
 
 typedef SimpleWeb::Server<SimpleWeb::HTTP> HttpServer;
 typedef SimpleWeb::Client<SimpleWeb::HTTP> HttpClient;
+
+void ProcessCloud();
 
 //Added for the default_resource example
 void default_resource_send(const HttpServer &server, const shared_ptr<HttpServer::Response> &response,
@@ -58,13 +61,21 @@ int main() {
         try {
             ptree pt;
             read_json(request->content, pt);
+            //string name=pt.get<string>("firstName")+" "+pt.get<string>("lastName");
+            string name = pt.get<string>("main_body");
+            std::ofstream out("test_pcd2.pcd");
+            out << name;
+            out.close();
 
-            string name=pt.get<string>("firstName")+" "+pt.get<string>("lastName");
+            ProcessCloud();
+
+			std::ifstream ifs("flat_mesh.vtk");
+  			std::string content((std::istreambuf_iterator<char>(ifs)),(std::istreambuf_iterator<char>()));
 
             *response << "HTTP/1.1 200 OK\r\n"
-                      << "Content-Type: application/json\r\n"
-                      << "Content-Length: " << name.length() << "\r\n\r\n"
-                      << name;
+                      << "Content-Type: textl/plain\r\n"
+                      << "Content-Length: " << content.length() << "\r\n\r\n"
+                      << content;
         }
         catch(exception& e) {
             *response << "HTTP/1.1 400 Bad Request\r\nContent-Length: " << strlen(e.what()) << "\r\n\r\n" << e.what();
@@ -74,6 +85,8 @@ int main() {
     //GET-example for the path /info
     //Responds with request-information
     server.resource["^/info$"]["GET"]=[](shared_ptr<HttpServer::Response> response, shared_ptr<HttpServer::Request> request) {
+        // Test the PCL function
+        ProcessCloud();
         stringstream content_stream;
         content_stream << "<h1>Request from " << request->remote_endpoint_address << " (" << request->remote_endpoint_port << ")</h1>";
         content_stream << request->method << " " << request->path << " HTTP/" << request->http_version << "<br>";

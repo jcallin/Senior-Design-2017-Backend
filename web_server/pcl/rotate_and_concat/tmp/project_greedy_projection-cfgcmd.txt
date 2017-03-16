@@ -1,1 +1,0 @@
-cmd='/usr/bin/cmake;-GUnix Makefiles;/home/julian/Documents/senior_design_2017_backend/web_server/build/../pcl/rotate_and_concat/src/project_greedy_projection'

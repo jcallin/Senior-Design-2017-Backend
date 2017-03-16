@@ -1,1 +1,1 @@
-/usr/bin/c++    -std=c++11 -Wall -Wextra -DHAVE_OPENSSL -fno-access-control   CMakeFiles/io_test.dir/io_test.cpp.o  -o io_test -rdynamic -lboost_system -lboost_thread -lboost_filesystem -lboost_date_time -lboost_chrono -lboost_atomic -lpthread -lpthread 
+/usr/bin/c++    -std=c++11 -Wall -Wextra  -DHAVE_OPENSSL -fno-access-control    CMakeFiles/io_test.dir/io_test.cpp.o  -o io_test -rdynamic -lboost_system -lboost_filesystem -lboost_thread -lboost_date_time -lboost_iostreams -lboost_serialization -lboost_chrono -lboost_atomic -lboost_regex -lpthread -lpthread 

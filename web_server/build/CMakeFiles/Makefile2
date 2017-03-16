@@ -54,19 +54,19 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/julian/Documents/Simple-Web-Server
+CMAKE_SOURCE_DIR = /home/julian/Documents/senior_design_2017_backend/web_server
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/julian/Documents/Simple-Web-Server/build
+CMAKE_BINARY_DIR = /home/julian/Documents/senior_design_2017_backend/web_server/build
 
 #=============================================================================
 # Target rules for target CMakeFiles/http_examples.dir
 
 # All Build rule for target.
-CMakeFiles/http_examples.dir/all:
+CMakeFiles/http_examples.dir/all: greedy_projection/CMakeFiles/greedy_projection.dir/all
 	$(MAKE) -f CMakeFiles/http_examples.dir/build.make CMakeFiles/http_examples.dir/depend
 	$(MAKE) -f CMakeFiles/http_examples.dir/build.make CMakeFiles/http_examples.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/julian/Documents/Simple-Web-Server/build/CMakeFiles --progress-num=3,4 "Built target http_examples"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/julian/Documents/senior_design_2017_backend/web_server/build/CMakeFiles --progress-num=5,6 "Built target http_examples"
 .PHONY : CMakeFiles/http_examples.dir/all
 
 # Include target in all.
@@ -76,9 +76,9 @@ all: CMakeFiles/http_examples.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/http_examples.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/Simple-Web-Server/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/senior_design_2017_backend/web_server/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/http_examples.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/Simple-Web-Server/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/senior_design_2017_backend/web_server/build/CMakeFiles 0
 .PHONY : CMakeFiles/http_examples.dir/rule
 
 # Convenience name for target.
@@ -103,7 +103,7 @@ clean: CMakeFiles/http_examples.dir/clean
 CMakeFiles/https_examples.dir/all:
 	$(MAKE) -f CMakeFiles/https_examples.dir/build.make CMakeFiles/https_examples.dir/depend
 	$(MAKE) -f CMakeFiles/https_examples.dir/build.make CMakeFiles/https_examples.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/julian/Documents/Simple-Web-Server/build/CMakeFiles --progress-num=5,6 "Built target https_examples"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/julian/Documents/senior_design_2017_backend/web_server/build/CMakeFiles --progress-num=7,8 "Built target https_examples"
 .PHONY : CMakeFiles/https_examples.dir/all
 
 # Include target in all.
@@ -113,9 +113,9 @@ all: CMakeFiles/https_examples.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/https_examples.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/Simple-Web-Server/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/senior_design_2017_backend/web_server/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/https_examples.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/Simple-Web-Server/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/senior_design_2017_backend/web_server/build/CMakeFiles 0
 .PHONY : CMakeFiles/https_examples.dir/rule
 
 # Convenience name for target.
@@ -130,6 +130,61 @@ CMakeFiles/https_examples.dir/clean:
 
 # clean rule for target.
 clean: CMakeFiles/https_examples.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory greedy_projection
+
+# Convenience name for "all" pass in the directory.
+greedy_projection/all: greedy_projection/CMakeFiles/greedy_projection.dir/all
+
+.PHONY : greedy_projection/all
+
+# Convenience name for "clean" pass in the directory.
+greedy_projection/clean: greedy_projection/CMakeFiles/greedy_projection.dir/clean
+
+.PHONY : greedy_projection/clean
+
+# Convenience name for "preinstall" pass in the directory.
+greedy_projection/preinstall:
+
+.PHONY : greedy_projection/preinstall
+
+#=============================================================================
+# Target rules for target greedy_projection/CMakeFiles/greedy_projection.dir
+
+# All Build rule for target.
+greedy_projection/CMakeFiles/greedy_projection.dir/all:
+	$(MAKE) -f greedy_projection/CMakeFiles/greedy_projection.dir/build.make greedy_projection/CMakeFiles/greedy_projection.dir/depend
+	$(MAKE) -f greedy_projection/CMakeFiles/greedy_projection.dir/build.make greedy_projection/CMakeFiles/greedy_projection.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/julian/Documents/senior_design_2017_backend/web_server/build/CMakeFiles --progress-num=3,4 "Built target greedy_projection"
+.PHONY : greedy_projection/CMakeFiles/greedy_projection.dir/all
+
+# Include target in all.
+all: greedy_projection/CMakeFiles/greedy_projection.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+greedy_projection/CMakeFiles/greedy_projection.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/senior_design_2017_backend/web_server/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 greedy_projection/CMakeFiles/greedy_projection.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/senior_design_2017_backend/web_server/build/CMakeFiles 0
+.PHONY : greedy_projection/CMakeFiles/greedy_projection.dir/rule
+
+# Convenience name for target.
+greedy_projection: greedy_projection/CMakeFiles/greedy_projection.dir/rule
+
+.PHONY : greedy_projection
+
+# clean rule for target.
+greedy_projection/CMakeFiles/greedy_projection.dir/clean:
+	$(MAKE) -f greedy_projection/CMakeFiles/greedy_projection.dir/build.make greedy_projection/CMakeFiles/greedy_projection.dir/clean
+.PHONY : greedy_projection/CMakeFiles/greedy_projection.dir/clean
+
+# clean rule for target.
+clean: greedy_projection/CMakeFiles/greedy_projection.dir/clean
 
 .PHONY : clean
 
@@ -162,7 +217,7 @@ tests/preinstall:
 tests/CMakeFiles/parse_test.dir/all:
 	$(MAKE) -f tests/CMakeFiles/parse_test.dir/build.make tests/CMakeFiles/parse_test.dir/depend
 	$(MAKE) -f tests/CMakeFiles/parse_test.dir/build.make tests/CMakeFiles/parse_test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/julian/Documents/Simple-Web-Server/build/CMakeFiles --progress-num=9,10 "Built target parse_test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/julian/Documents/senior_design_2017_backend/web_server/build/CMakeFiles --progress-num=11,12 "Built target parse_test"
 .PHONY : tests/CMakeFiles/parse_test.dir/all
 
 # Include target in all.
@@ -172,9 +227,9 @@ all: tests/CMakeFiles/parse_test.dir/all
 
 # Build rule for subdir invocation for target.
 tests/CMakeFiles/parse_test.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/Simple-Web-Server/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/senior_design_2017_backend/web_server/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/parse_test.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/Simple-Web-Server/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/senior_design_2017_backend/web_server/build/CMakeFiles 0
 .PHONY : tests/CMakeFiles/parse_test.dir/rule
 
 # Convenience name for target.
@@ -199,7 +254,7 @@ clean: tests/CMakeFiles/parse_test.dir/clean
 tests/CMakeFiles/io_test.dir/all:
 	$(MAKE) -f tests/CMakeFiles/io_test.dir/build.make tests/CMakeFiles/io_test.dir/depend
 	$(MAKE) -f tests/CMakeFiles/io_test.dir/build.make tests/CMakeFiles/io_test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/julian/Documents/Simple-Web-Server/build/CMakeFiles --progress-num=7,8 "Built target io_test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/julian/Documents/senior_design_2017_backend/web_server/build/CMakeFiles --progress-num=9,10 "Built target io_test"
 .PHONY : tests/CMakeFiles/io_test.dir/all
 
 # Include target in all.
@@ -209,9 +264,9 @@ all: tests/CMakeFiles/io_test.dir/all
 
 # Build rule for subdir invocation for target.
 tests/CMakeFiles/io_test.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/Simple-Web-Server/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/senior_design_2017_backend/web_server/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/io_test.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/Simple-Web-Server/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/senior_design_2017_backend/web_server/build/CMakeFiles 0
 .PHONY : tests/CMakeFiles/io_test.dir/rule
 
 # Convenience name for target.
@@ -236,7 +291,7 @@ clean: tests/CMakeFiles/io_test.dir/clean
 tests/CMakeFiles/crypto_test.dir/all:
 	$(MAKE) -f tests/CMakeFiles/crypto_test.dir/build.make tests/CMakeFiles/crypto_test.dir/depend
 	$(MAKE) -f tests/CMakeFiles/crypto_test.dir/build.make tests/CMakeFiles/crypto_test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/julian/Documents/Simple-Web-Server/build/CMakeFiles --progress-num=1,2 "Built target crypto_test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/julian/Documents/senior_design_2017_backend/web_server/build/CMakeFiles --progress-num=1,2 "Built target crypto_test"
 .PHONY : tests/CMakeFiles/crypto_test.dir/all
 
 # Include target in all.
@@ -246,9 +301,9 @@ all: tests/CMakeFiles/crypto_test.dir/all
 
 # Build rule for subdir invocation for target.
 tests/CMakeFiles/crypto_test.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/Simple-Web-Server/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/senior_design_2017_backend/web_server/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/crypto_test.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/Simple-Web-Server/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/senior_design_2017_backend/web_server/build/CMakeFiles 0
 .PHONY : tests/CMakeFiles/crypto_test.dir/rule
 
 # Convenience name for target.

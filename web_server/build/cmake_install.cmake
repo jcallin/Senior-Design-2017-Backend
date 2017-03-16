@@ -1,4 +1,4 @@
-# Install script for directory: /home/julian/Documents/Simple-Web-Server
+# Install script for directory: /home/julian/Documents/senior_design_2017_backend/web_server
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,16 +34,17 @@ endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/simple-web-server" TYPE FILE FILES
-    "/home/julian/Documents/Simple-Web-Server/server_http.hpp"
-    "/home/julian/Documents/Simple-Web-Server/client_http.hpp"
-    "/home/julian/Documents/Simple-Web-Server/server_https.hpp"
-    "/home/julian/Documents/Simple-Web-Server/client_https.hpp"
+    "/home/julian/Documents/senior_design_2017_backend/web_server/server_http.hpp"
+    "/home/julian/Documents/senior_design_2017_backend/web_server/client_http.hpp"
+    "/home/julian/Documents/senior_design_2017_backend/web_server/server_https.hpp"
+    "/home/julian/Documents/senior_design_2017_backend/web_server/client_https.hpp"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/julian/Documents/Simple-Web-Server/build/tests/cmake_install.cmake")
+  include("/home/julian/Documents/senior_design_2017_backend/web_server/build/greedy_projection/cmake_install.cmake")
+  include("/home/julian/Documents/senior_design_2017_backend/web_server/build/tests/cmake_install.cmake")
 
 endif()
 
@@ -55,5 +56,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/julian/Documents/Simple-Web-Server/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/julian/Documents/senior_design_2017_backend/web_server/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

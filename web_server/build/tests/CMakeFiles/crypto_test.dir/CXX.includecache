@@ -28,11 +28,11 @@ openssl/sha.h
 openssl/md5.h
 -
 
-/home/julian/Documents/Simple-Web-Server/tests/crypto_test.cpp
+/home/julian/Documents/senior_design_2017_backend/web_server/tests/crypto_test.cpp
 vector
 -
 cassert
 -
 crypto.hpp
-/home/julian/Documents/Simple-Web-Server/tests/crypto.hpp
+/home/julian/Documents/senior_design_2017_backend/web_server/tests/crypto.hpp
 
