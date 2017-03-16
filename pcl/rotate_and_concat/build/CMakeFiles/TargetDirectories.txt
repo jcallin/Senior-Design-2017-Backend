@@ -1,5 +1,0 @@
-/home/julian/Documents/senior_design_2017/pcl/rotate_and_concat/build/CMakeFiles/edit_cache.dir
-/home/julian/Documents/senior_design_2017/pcl/rotate_and_concat/build/CMakeFiles/greedy_projection.dir
-/home/julian/Documents/senior_design_2017/pcl/rotate_and_concat/build/CMakeFiles/concatenate_clouds.dir
-/home/julian/Documents/senior_design_2017/pcl/rotate_and_concat/build/CMakeFiles/pcd_gen.dir
-/home/julian/Documents/senior_design_2017/pcl/rotate_and_concat/build/CMakeFiles/rebuild_cache.dir
