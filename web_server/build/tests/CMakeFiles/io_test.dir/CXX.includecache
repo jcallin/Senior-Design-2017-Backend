@@ -50,11 +50,11 @@ boost/regex.hpp
 regex
 -
 
-/home/julian/Documents/Simple-Web-Server/tests/io_test.cpp
+/home/julian/Documents/senior_design_2017_backend/web_server/tests/io_test.cpp
 server_http.hpp
-/home/julian/Documents/Simple-Web-Server/tests/server_http.hpp
+/home/julian/Documents/senior_design_2017_backend/web_server/tests/server_http.hpp
 client_http.hpp
-/home/julian/Documents/Simple-Web-Server/tests/client_http.hpp
+/home/julian/Documents/senior_design_2017_backend/web_server/tests/client_http.hpp
 cassert
 -
 

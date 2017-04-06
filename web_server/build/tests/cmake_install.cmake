@@ -1,4 +1,4 @@
-# Install script for directory: /home/julian/Documents/Simple-Web-Server/tests
+# Install script for directory: /home/julian/Documents/senior_design_2017_backend/web_server/tests
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

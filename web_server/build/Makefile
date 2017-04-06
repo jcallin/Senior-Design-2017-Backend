@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/julian/Documents/Simple-Web-Server
+CMAKE_SOURCE_DIR = /home/julian/Documents/senior_design_2017_backend/web_server
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/julian/Documents/Simple-Web-Server/build
+CMAKE_BINARY_DIR = /home/julian/Documents/senior_design_2017_backend/web_server/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -135,9 +135,9 @@ install/strip/fast: install/strip
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/Simple-Web-Server/build/CMakeFiles /home/julian/Documents/Simple-Web-Server/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/senior_design_2017_backend/web_server/build/CMakeFiles /home/julian/Documents/senior_design_2017_backend/web_server/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/Simple-Web-Server/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/julian/Documents/senior_design_2017_backend/web_server/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -190,6 +190,19 @@ https_examples: cmake_check_build_system
 https_examples/fast:
 	$(MAKE) -f CMakeFiles/https_examples.dir/build.make CMakeFiles/https_examples.dir/build
 .PHONY : https_examples/fast
+
+#=============================================================================
+# Target rules for targets named greedy_projection
+
+# Build rule for target.
+greedy_projection: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 greedy_projection
+.PHONY : greedy_projection
+
+# fast build rule for target.
+greedy_projection/fast:
+	$(MAKE) -f greedy_projection/CMakeFiles/greedy_projection.dir/build.make greedy_projection/CMakeFiles/greedy_projection.dir/build
+.PHONY : greedy_projection/fast
 
 #=============================================================================
 # Target rules for targets named parse_test
@@ -299,6 +312,7 @@ help:
 	@echo "... https_examples"
 	@echo "... install/local"
 	@echo "... install/strip"
+	@echo "... greedy_projection"
 	@echo "... parse_test"
 	@echo "... io_test"
 	@echo "... crypto_test"
