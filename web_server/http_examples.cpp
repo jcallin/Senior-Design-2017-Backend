@@ -59,13 +59,22 @@ int main() {
 	//}
 	server.resource["^/json$"]["POST"]=[](shared_ptr<HttpServer::Response> response, shared_ptr<HttpServer::Request> request) {
 		try {
+
+			// Read the JSON post from the phone/tablet
 			ptree pt;
 			read_json(request->content, pt);
 			//string name=pt.get<string>("firstName")+" "+pt.get<string>("lastName");
-			string name = pt.get<string>("main_body");
-			std::ofstream out("test_pcd2.pcd");
-			out << name;
-			out.close();
+
+			// Extract separate clouds and save to separate files for concatenation
+			string front_cloud = pt.get<string>("main_body.front");
+			string back_cloud = pt.get<string>("main_body.back");
+
+			std::ofstream out_front("point_clouds/front.pcd");
+			std::ofstream out_back("point_clouds/back.pcd");
+			out_front << front_cloud;
+			out_back << back_cloud;
+			out_front.close();
+			out_back.close();
 
 			ProcessCloud();
 
@@ -117,7 +126,7 @@ int main() {
 		work_thread.detach();
 	};
 
-	//Default GET-example. If no other matches, this anonymous function will be called. 
+	//Default GET-example. If no other matches, this anonymous function will be called.
 	//Will respond with content in the web/-directory, and its subdirectories.
 	//Default file: index.html
 	//Can for instance be used to retrieve an HTML 5 client that uses REST-resources on this server

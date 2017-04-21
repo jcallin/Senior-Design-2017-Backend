@@ -10,9 +10,14 @@ void ProcessCloud()
 		// Load input file into a PointCloud<T> with an appropriate type
 		pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
 		pcl::PCLPointCloud2 cloud_blob;
-		pcl::io::loadPCDFile ("test_pcd2.pcd", cloud_blob);
+		pcl::io::loadPCDFile ("point_clouds/pc_front2.pcd", cloud_blob);
 		pcl::fromPCLPointCloud2 (cloud_blob, *cloud);
 		//* the data should be available in cloud
+
+		// Invert the y axis-coordinates of the cloud
+		for(size_t i = 0; i < cloud->points.size(); i++){
+			cloud->points[i].y = -cloud->points[i].y;
+		}
 
 		// Normal estimation*
 		pcl::NormalEstimation<pcl::PointXYZ, pcl::Normal> n;
@@ -43,7 +48,7 @@ void ProcessCloud()
 
 		// Set typical values for the parameters
 		gp3.setMu (2.5);
-		gp3.setMaximumNearestNeighbors (100);
+		gp3.setMaximumNearestNeighbors (500);
 		gp3.setMaximumSurfaceAngle(M_PI/4); // 45 degrees
 		gp3.setMinimumAngle(M_PI/18); // 10 degrees
 		gp3.setMaximumAngle(2*M_PI/3); // 120 degrees
@@ -58,7 +63,12 @@ void ProcessCloud()
 		std::vector<int> parts = gp3.getPartIDs();
 		std::vector<int> states = gp3.getPointStates();
 
-        pcl::io::saveVTKFile ("flat_mesh.vtk", triangles);
+    pcl::io::saveVTKFile ("meshes/flat_mesh_front2.vtk", triangles);
 		// Finish
 		return;
+}
+
+int main(){
+	ProcessCloud();
+	return 0;
 }

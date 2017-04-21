@@ -6,17 +6,30 @@
 int main (int argc, char** argv)
 {
 
-	pcl::PointCloud<pcl::PointXYZ> cloud_a, cloud_b, cloud_c;
+	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_a (new pcl::PointCloud<pcl::PointXYZ>);
+	pcl::PCLPointCloud2 cloud_blob;
+	pcl::io::loadPCDFile ("pc_front.pcd", cloud_blob);
+	pcl::fromPCLPointCloud2 (cloud_blob, *cloud_b);
+
+	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_b (new pcl::PointCloud<pcl::PointXYZ>);
+	pcl::PCLPointCloud2 cloud_blob;
+	pcl::io::loadPCDFile ("pc_back.pcd", cloud_blob);
+	pcl::fromPCLPointCloud2 (cloud_blob, *cloud_b);
+
+
+
 	pcl::PointCloud<pcl::Normal> n_cloud_b;
-	pcl::PointCloud<pcl::PointNormal> p_n_cloud_c;
+	//pcl::PointCloud<pcl::PointXYZ> cloud_a, cloud_b, cloud_c;
+	//pcl::PointCloud<pcl::PointNormal> p_n_cloud_c;
 
 	// Fill in the cloud data
-	cloud_a.width  = 5;
+	cloud_a.width  = 500;
 	cloud_a.height = cloud_b.height = n_cloud_b.height = 1;
 	cloud_a.points.resize (cloud_a.width * cloud_a.height);
 
-	cloud_b.width  = 3;
+	cloud_b.width  = 350;
 	cloud_b.points.resize (cloud_b.width * cloud_b.height);
+  float SPHERE_RADIUS = 5;
 
 	for (size_t i = 0; i < cloud_a.points.size (); ++i)
 	{
@@ -36,7 +49,7 @@ int main (int argc, char** argv)
 		// If all number are not 0, normalize, else skip to assignment
 		if(!(x == 0 && y == 0 && z == 0)){
 			float norm_coef;
-			norm_coef = 1 / sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2))
+			norm_coef = 1 / sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
 			x *= norm_coef * SPHERE_RADIUS;
 			y *= norm_coef * SPHERE_RADIUS;
 			z *= norm_coef * SPHERE_RADIUS;
@@ -68,5 +81,7 @@ int main (int argc, char** argv)
 	for (size_t i = 0; i < cloud_c.points.size (); ++i)
 		std::cerr << "    " << cloud_c.points[i].x << " " << cloud_c.points[i].y << " " << cloud_c.points[i].z << " " << std::endl;
 
+	// Save point cloud data to file for meshing
+  pcl::io::savePCDFileASCII ("concat_pcd.pcd", cloud_c);
 	return (0);
 }
