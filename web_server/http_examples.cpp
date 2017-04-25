@@ -23,7 +23,7 @@ using namespace boost::property_tree;
 typedef SimpleWeb::Server<SimpleWeb::HTTP> HttpServer;
 typedef SimpleWeb::Client<SimpleWeb::HTTP> HttpClient;
 
-void ProcessCloud();
+void ProcessCloud(string pc_location, string mesh_name);
 
 //Added for the default_resource example
 void default_resource_send(const HttpServer &server, const shared_ptr<HttpServer::Response> &response,
@@ -69,16 +69,16 @@ int main() {
 			string front_cloud = pt.get<string>("main_body.front");
 			string back_cloud = pt.get<string>("main_body.back");
 
-			std::ofstream out_front("point_clouds/front.pcd");
+			std::ofstream out_front("point_clouds/pc_front.pcd");
 			std::ofstream out_back("point_clouds/back.pcd");
 			out_front << front_cloud;
 			out_back << back_cloud;
 			out_front.close();
 			out_back.close();
 
-			ProcessCloud();
+			ProcessCloud("point_clouds/pc_front.pcd", "meshes/flat_mesh_front.vtk");
 
-			std::ifstream ifs("flat_mesh.vtk");
+			std::ifstream ifs("meshes/flat_mesh_front.vtk");
 			std::string content((std::istreambuf_iterator<char>(ifs)),(std::istreambuf_iterator<char>()));
 
 			*response << "HTTP/1.1 200 OK\r\n"
@@ -94,8 +94,6 @@ int main() {
 	//GET-example for the path /info
 	//Responds with request-information
 	server.resource["^/info$"]["GET"]=[](shared_ptr<HttpServer::Response> response, shared_ptr<HttpServer::Request> request) {
-		// Test the PCL function
-		ProcessCloud();
 		stringstream content_stream;
 		content_stream << "<h1>Request from " << request->remote_endpoint_address << " (" << request->remote_endpoint_port << ")</h1>";
 		content_stream << request->method << " " << request->path << " HTTP/" << request->http_version << "<br>";
