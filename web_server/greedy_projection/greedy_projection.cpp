@@ -4,20 +4,34 @@
 #include <pcl/features/normal_3d.h>
 #include <pcl/surface/gp3.h>
 #include <pcl/io/vtk_io.h>
+#include <pcl/common/transforms.h>
 
 void ProcessCloud()
 {
 		// Load input file into a PointCloud<T> with an appropriate type
 		pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
 		pcl::PCLPointCloud2 cloud_blob;
-		pcl::io::loadPCDFile ("point_clouds/pc_front2.pcd", cloud_blob);
+		//pcl::io::loadPCDFile ("point_clouds/pc_back1.pcd", cloud_blob);
+		pcl::io::loadPCDFile ("point_clouds/pc_front1.pcd", cloud_blob);
 		pcl::fromPCLPointCloud2 (cloud_blob, *cloud);
 		//* the data should be available in cloud
 
-		// Invert the y axis-coordinates of the cloud
-		for(size_t i = 0; i < cloud->points.size(); i++){
-			cloud->points[i].y = -cloud->points[i].y;
-		}
+		// Rotate the cloud a number of degrees about the x axis to account for varying camera angle
+		// Dont transform, only rotate (use identity transformation matrix)
+		Eigen::Affine3f transform (Eigen::Affine3f::Identity());
+		// Rotate 20 degrees for test
+		Eigen::Matrix3f rotation (Eigen::AngleAxisf((20.0*M_PI) / 180, Eigen::Vector3f::UnitX()));
+		transform.rotate(rotation);
+		pcl::transformPointCloud(*cloud, *cloud, transform);
+		std::cout << transform.matrix() << std::endl << std::endl;
+
+		/*
+			FOR BACK CLOUD ONLY
+		*/
+		// Invert the y coordinates of the cloud
+		// for(size_t i = 0; i < cloud->points.size(); i++){
+		// 	cloud->points[i].y = -cloud->points[i].y;
+		// }
 
 		// Normal estimation*
 		pcl::NormalEstimation<pcl::PointXYZ, pcl::Normal> n;
@@ -63,7 +77,8 @@ void ProcessCloud()
 		std::vector<int> parts = gp3.getPartIDs();
 		std::vector<int> states = gp3.getPointStates();
 
-    pcl::io::saveVTKFile ("meshes/flat_mesh_front2.vtk", triangles);
+    //pcl::io::saveVTKFile ("meshes/flat_mesh_back1.vtk", triangles);
+    pcl::io::saveVTKFile ("meshes/flat_mesh_front1.vtk", triangles);
 		// Finish
 		return;
 }
