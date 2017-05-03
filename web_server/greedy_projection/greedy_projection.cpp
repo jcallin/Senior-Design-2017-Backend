@@ -6,13 +6,15 @@
 #include <pcl/io/vtk_io.h>
 #include <pcl/common/transforms.h>
 
-void ProcessCloud()
+using namespace std;
+
+void ProcessCloud(string cloud_path, string mesh_path)
 {
 		// Load input file into a PointCloud<T> with an appropriate type
 		pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
 		pcl::PCLPointCloud2 cloud_blob;
 		//pcl::io::loadPCDFile ("point_clouds/pc_back1.pcd", cloud_blob);
-		pcl::io::loadPCDFile ("point_clouds/pc_front1.pcd", cloud_blob);
+		pcl::io::loadPCDFile (cloud_path, cloud_blob);
 		pcl::fromPCLPointCloud2 (cloud_blob, *cloud);
 		//* the data should be available in cloud
 
@@ -78,12 +80,15 @@ void ProcessCloud()
 		std::vector<int> states = gp3.getPointStates();
 
     //pcl::io::saveVTKFile ("meshes/flat_mesh_back1.vtk", triangles);
-    pcl::io::saveVTKFile ("meshes/flat_mesh_front1.vtk", triangles);
+    pcl::io::saveVTKFile (mesh_path, triangles);
 		// Finish
 		return;
 }
 
-int main(){
-	ProcessCloud();
+int main(int argc, char* argv[]){
+	if(argc != 3){
+		cout << "Please specify an input cloud path and an output vtk path" << endl;
+	}
+	ProcessCloud(argv[1], argv[2]);
 	return 0;
 }
