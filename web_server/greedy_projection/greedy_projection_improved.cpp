@@ -16,7 +16,6 @@ void ProcessCloud()
 {
 		// Load input file into a PointCloud<T> with an appropriate type
 		pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
-		cloud->is_dense = false;
 		pcl::PCLPointCloud2 cloud_blob;
 		//pcl::io::loadPCDFile ("point_clouds/pc_back1.pcd", cloud_blob);
 		pcl::io::loadPCDFile ("point_clouds/pc_front1.pcd", cloud_blob);
@@ -31,8 +30,9 @@ void ProcessCloud()
 		transform.rotate(rotation);
 		pcl::transformPointCloud(*cloud, *cloud, transform);
 
-		std::vector<int> indices;
-		pcl::removeNaNFromPointCloud(*cloud, *cloud, indices);
+		//cloud->is_dense = false;
+		//std::vector<int> indices;
+		//pcl::removeNaNFromPointCloud(*cloud, *cloud, indices);
 		/*
 			FOR BACK CLOUD ONLY
 		*/
@@ -56,7 +56,7 @@ void ProcessCloud()
 		std::cout << "MLS processing finished" << std::endl;
 
 		NormalEstimationOMP<PointXYZ, Normal> ne;
-		ne.setNumberOfThreads (4);
+		ne.setNumberOfThreads (8);
 		ne.setInputCloud (cloud_smoothed);
 		ne.setRadiusSearch (0.01);
 		Eigen::Vector4f centroid;
@@ -79,7 +79,7 @@ void ProcessCloud()
 		concatenateFields (*cloud_smoothed, *cloud_normals, *cloud_smoothed_normals);
 
 		Poisson<PointNormal> poisson;
-		poisson.setDepth (9);
+		poisson.setDepth (7);
 		poisson.setInputCloud(cloud_smoothed_normals);
 		PolygonMesh mesh;
 		poisson.reconstruct (mesh);
