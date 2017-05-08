@@ -8,7 +8,6 @@
 #ifndef GREEDY_PROJECTION_H
 #define GREEDY_PROJECTION_H
 
-void ProcessCloud();
-PointCloudT::Ptr FilterPlane (PointCloudt::Ptr cloud);
+void ProcessCloud(string cloud_path, string mesh_path, bool poisson);
 
 #endif /* GREEDY_PROJECTION_H */

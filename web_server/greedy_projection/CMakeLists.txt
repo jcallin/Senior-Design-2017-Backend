@@ -5,6 +5,8 @@ find_package(PCL 1.7 REQUIRED)
 
 list(REMOVE_ITEM PCL_LIBRARIES "vtkproj4")
 
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
+
 include_directories(${PCL_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})

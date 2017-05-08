@@ -25,6 +25,13 @@
 #include <pcl/segmentation/conditional_euclidean_clustering.h>
 #include <pcl/segmentation/extract_clusters.h>
 
+//Poisson
+#include <pcl/filters/filter.h>
+#include <pcl/common/common.h>
+#include <pcl/features/normal_3d_omp.h>
+#include <pcl/surface/mls.h>
+#include <pcl/surface/poisson.h>
+
 using namespace std;
 
 //#include <Eigen/Dense>
@@ -146,8 +153,52 @@ PointCloudT::Ptr RemoveOutliers (PointCloudT::Ptr cloud)
 		return cloud_cluster;
 }
 
+PointCloudT::Ptr Poisson (PointCloudT::Ptr cloud, string mesh_path)
+{
+	using namespace pcl;
+	MovingLeastSquares<PointXYZ, PointXYZ> mls;
+	mls.setInputCloud (cloud);
+	mls.setSearchRadius (0.01);
+	mls.setPolynomialFit ( true );
+	mls.setPolynomialOrder (2);
+	mls.setUpsamplingMethod (MovingLeastSquares<PointXYZ, PointXYZ>::SAMPLE_LOCAL_PLANE);
+	mls.setUpsamplingRadius (0.005);
+	mls.setUpsamplingStepSize (0.003);
 
-void ProcessCloud(string cloud_path, string mesh_path)
+	PointCloud<PointXYZ>::Ptr cloud_smoothed ( new PointCloud<PointXYZ> ());
+	std::cout << "MLS processing..." << std::endl;
+	mls.process (*cloud_smoothed);
+	std::cout << "MLS processing finished" << std::endl;
+
+	NormalEstimationOMP<PointXYZ, Normal> ne;
+	ne.setNumberOfThreads (8);
+	ne.setInputCloud (cloud_smoothed);
+	ne.setRadiusSearch (0.01);
+	Eigen::Vector4f centroid;
+	compute3DCentroid (*cloud_smoothed, centroid);
+	ne.setViewPoint (centroid[0], centroid[1], centroid[2]);
+
+	PointCloud<Normal>::Ptr cloud_normals ( new PointCloud<Normal> ());
+	std::cout << "Surface normals processing..." << std::endl;
+	ne.compute (*cloud_normals);
+	std::cout << "Surface normals finished" << std::endl;
+
+	PointCloud<PointNormal>::Ptr cloud_smoothed_normals ( new PointCloud<PointNormal> ());
+	concatenateFields (*cloud_smoothed, *cloud_normals, *cloud_smoothed_normals);
+
+	std::cout << "Poisson starting..." << std::endl;
+	pcl::Poisson<PointNormal> poisson;
+	poisson.setDepth (7);
+	poisson.setInputCloud(cloud_smoothed_normals);
+	PolygonMesh mesh;
+	poisson.reconstruct (mesh);
+	std::cout << "Poisson finished..." << std::endl;
+
+  pcl::io::saveVTKFile (mesh_path, mesh);
+}
+
+
+void ProcessCloud(string cloud_path, string mesh_path, bool poisson)
 {
 		// Load input file into a PointCloud<T> with an appropriate type
 		pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
@@ -165,6 +216,11 @@ void ProcessCloud(string cloud_path, string mesh_path)
 
 		// Cluster extraction to find biggest object
 		cloud = ExtractLargestCluster(cloud);
+
+		if(poisson){
+			Poisson(cloud, mesh_path);
+			return;
+		}
 
 		// Rotate the cloud a number of degrees about the x axis to account for varying camera angle
 		// Dont transform, only rotate (use identity transformation matrix)
@@ -233,11 +289,13 @@ void ProcessCloud(string cloud_path, string mesh_path)
 }
 
 int main(int argc, char* argv[]){
-	if(argc != 3){
+	if(argc != 4){
 		cout << "Please specify an input cloud path and an output vtk path" << endl;
 	}
+	bool poisson = bool(argv[3]);
 	cout << "Input cloud path is " << argv[1] << endl;
 	cout << "Output vtk path is " << argv[2] << endl;
-	ProcessCloud(argv[1], argv[2]);
+	cout << "Constructing mesh with: " << (poisson ? "Poisson" : "greedy") << endl;
+	ProcessCloud(argv[1], argv[2], poisson);
 	return 0;
 }
