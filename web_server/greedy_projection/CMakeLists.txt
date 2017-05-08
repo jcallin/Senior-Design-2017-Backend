@@ -19,6 +19,6 @@ add_definitions(${PCL_DEFINITIONS})
 #target_link_libraries (concatenate_clouds ${PCL_LIBRARIES})
 
 # Make this into a library for the server to use
-add_library(greedy_projection STATIC greedy_projection.cpp)
+add_library(greedy_projection STATIC greedy_projection_lib.cpp)
 install(TARGETS greedy_projection DESTINATION lib)
 install(FILES greedy_projection.h DESTINATION include)

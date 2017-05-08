@@ -33,7 +33,7 @@ endif()
 #ExternalProject_Get_Property(project_greedy_projection install_dir)
 #
 #add_library(greedy_projection STATIC IMPORTED)
-#set_property(TARGET greedy_projection 
+#set_property(TARGET greedy_projection
 #        PROPERTY IMPORTED_LOCATION ${install_dir}/lib/greedy_projection)
 #add_dependencies(greedy_projection project_greedy_projection)
 #
