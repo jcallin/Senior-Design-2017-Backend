@@ -23,6 +23,7 @@ using namespace boost::property_tree;
 typedef SimpleWeb::Server<SimpleWeb::HTTP> HttpServer;
 typedef SimpleWeb::Client<SimpleWeb::HTTP> HttpClient;
 
+// Declare extenal functions
 void ProcessCloud();
 
 //Added for the default_resource example

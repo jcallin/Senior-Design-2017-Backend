@@ -9,5 +9,6 @@
 #define GREEDY_PROJECTION_H
 
 void ProcessCloud();
+PointCloudT::Ptr FilterPlane (PointCloudt::Ptr cloud);
 
 #endif /* GREEDY_PROJECTION_H */
