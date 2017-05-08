@@ -95,29 +95,6 @@ PointCloudT::Ptr ExtractLargestCluster (PointCloudT::Ptr cloud)
 	return cloud_filtered;
 }
 
-bool enforceCurvatureOrIntensitySimilarity (const pcl::PointNormal& point_a, const pcl::PointNormal& point_b, float squared_distance)
-{
-  //const Eigen::Vector3f point_a_normal = point_a.normal, point_b_normal = point_b.normal;
-  Eigen::Map<const Eigen::Vector3f> point_a_normal(point_a.normal);
-	Eigen::Map<const Eigen::Vector3f> point_b_normal(point_b.normal);
-  if (fabs (point_a_normal.dot (point_b_normal)) < 0.05)
-    return (true);
-  return (false);
-}
-
-bool customRegionGrowing (const pcl::PointNormal& point_a, const pcl::PointNormal& point_b, float squared_distance)
-{
-	Eigen::Map<const Eigen::Vector3f> point_a_normal(point_a.normal);
-	Eigen::Map<const Eigen::Vector3f> point_b_normal(point_b.normal);
-  if (squared_distance < 10000)
-  {
-    if (fabs (point_a_normal.dot (point_b_normal)) < 0.06)
-      return (true);
-  }
-  return (false);
-}
-
-
 PointCloudT::Ptr RemoveOutliers (PointCloudT::Ptr cloud)
 {
 
