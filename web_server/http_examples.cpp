@@ -24,7 +24,7 @@ typedef SimpleWeb::Server<SimpleWeb::HTTP> HttpServer;
 typedef SimpleWeb::Client<SimpleWeb::HTTP> HttpClient;
 
 // Declare extenal functions
-void ProcessCloud();
+void ProcessCloud(string cloud_path, string mesh_path);
 
 //Added for the default_resource example
 void default_resource_send(const HttpServer &server, const shared_ptr<HttpServer::Response> &response,
@@ -77,7 +77,7 @@ int main() {
 			out_front.close();
 			out_back.close();
 
-			ProcessCloud();
+			ProcessCloud("point_clouds/front.pcd", "flat_mesh.vtk");
 
 			std::ifstream ifs("flat_mesh.vtk");
 			std::string content((std::istreambuf_iterator<char>(ifs)),(std::istreambuf_iterator<char>()));
