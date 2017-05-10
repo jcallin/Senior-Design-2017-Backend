@@ -119,7 +119,7 @@ PointCloudT::Ptr ExtractLargestCluster (PointCloudT::Ptr cloud)
 
 	std::vector<pcl::PointIndices> cluster_indices;
 	pcl::EuclideanClusterExtraction<pcl::PointXYZ> ec;
-	ec.setClusterTolerance (0.005); // 2cm
+	ec.setClusterTolerance (0.004); // .4cm
 	ec.setMinClusterSize (100);
 	ec.setMaxClusterSize (25000);
 	ec.setSearchMethod (tree);
@@ -172,6 +172,7 @@ PointCloudT::Ptr MLSSmooth (PointCloudT::Ptr cloud)
   mls.setDilationVoxelSize(0.002);
 	mls.setPolynomialOrder (4);
 
+	// Because we are using VOXEL_GRID_DILATION, we don't need these parameters
 	// mls.setUpsamplingRadius (0.005);
 	// mls.setUpsamplingStepSize (0.003);
 
@@ -188,10 +189,11 @@ void Poisson (PointCloudT::Ptr cloud, string mesh_path)
 	NormalEstimationOMP<PointXYZ, Normal> ne;
 	ne.setNumberOfThreads (8);
 	ne.setInputCloud (cloud);
-	ne.setRadiusSearch (0.01);
+	ne.setRadiusSearch (0.005); //.5cm sphere search
 	Eigen::Vector4f centroid;
 	compute3DCentroid (*cloud, centroid);
 	ne.setViewPoint (centroid[0], centroid[1], centroid[2]);
+  //ne.setViewPoint (0, 0, 0);
 
 	PointCloud<Normal>::Ptr cloud_normals ( new PointCloud<Normal> ());
 	std::cout << "Surface normals processing..." << std::endl;
@@ -204,7 +206,7 @@ void Poisson (PointCloudT::Ptr cloud, string mesh_path)
 	std::cout << "Poisson starting..." << std::endl;
 	pcl::Poisson<PointNormal> poisson;
 	poisson.setDepth (7);
-	poisson.setScale(1.0);
+	poisson.setScale(3.0);
 	poisson.setInputCloud(cloud_smoothed_normals);
 	PolygonMesh mesh;
 	poisson.reconstruct (mesh);
@@ -276,7 +278,7 @@ PointCloudT::Ptr GenerateSecondCloud(PointCloudT::Ptr cloud, bool single_cloud){
 	cout << "Back min z is: " << back_min_z << endl;
 	// Translate the points back up to match the original cloud
 	for(size_t i = 0; i < num_points; i++){
-		cloud_back->points[i].z += (2 * avg) + (3.5 * std_dev);
+		cloud_back->points[i].z += (2 * avg) + (4.0 * std_dev);
 	}
 
 	return cloud_back;
@@ -302,6 +304,7 @@ void ProcessCloud(string cloud_path, string mesh_path, bool poisson, bool single
 
 		//Smooth the cloud
 		cloud = MLSSmooth(cloud);
+
 		/*
 			FOR BACK CLOUD ONLY
 			Take the front cloud, invert its coordinates, and reposition it to align
@@ -388,10 +391,11 @@ int main(int argc, char* argv[]){
 		return 1;
 	}
 	bool poisson = (strcmp(argv[3], "0") == 0 ? false : true);
-	bool single_cloud = (strcmp(argv[3], "0") == 0 ? false : true);
+	bool single_cloud = (strcmp(argv[4], "0") == 0 ? false : true);
 	cout << "Input cloud path is " << argv[1] << endl;
 	cout << "Output vtk path is " << argv[2] << endl;
 	cout << "Constructing mesh with: " << (poisson ? "Poisson" : "greedy") << endl;
+	cout << "Constructing mesh from: " << (single_cloud ? "one point cloud" : "two points clouds") << endl;
 	ProcessCloud(argv[1], argv[2], poisson, single_cloud);
 	return 0;
 }
