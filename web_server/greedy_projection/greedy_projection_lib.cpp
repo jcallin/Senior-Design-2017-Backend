@@ -118,7 +118,7 @@ PointCloudT::Ptr ExtractLargestCluster (PointCloudT::Ptr cloud)
 
 	std::vector<pcl::PointIndices> cluster_indices;
 	pcl::EuclideanClusterExtraction<pcl::PointXYZ> ec;
-	ec.setClusterTolerance (0.005); // 2cm
+	ec.setClusterTolerance (0.004); // 2cm
 	ec.setMinClusterSize (100);
 	ec.setMaxClusterSize (25000);
 	ec.setSearchMethod (tree);
@@ -171,6 +171,7 @@ PointCloudT::Ptr MLSSmooth (PointCloudT::Ptr cloud)
   mls.setDilationVoxelSize(0.002);
 	mls.setPolynomialOrder (4);
 
+	// Because we are using VOXEL_GRID_DILATION, we don't need these parameters
 	// mls.setUpsamplingRadius (0.005);
 	// mls.setUpsamplingStepSize (0.003);
 
@@ -187,10 +188,11 @@ void Poisson (PointCloudT::Ptr cloud, string mesh_path)
 	NormalEstimationOMP<PointXYZ, Normal> ne;
 	ne.setNumberOfThreads (8);
 	ne.setInputCloud (cloud);
-	ne.setRadiusSearch (0.01);
+	ne.setRadiusSearch (0.005); //.5cm sphere search
 	Eigen::Vector4f centroid;
 	compute3DCentroid (*cloud, centroid);
 	ne.setViewPoint (centroid[0], centroid[1], centroid[2]);
+  //ne.setViewPoint (0, 0, 0);
 
 	PointCloud<Normal>::Ptr cloud_normals ( new PointCloud<Normal> ());
 	std::cout << "Surface normals processing..." << std::endl;
@@ -203,7 +205,7 @@ void Poisson (PointCloudT::Ptr cloud, string mesh_path)
 	std::cout << "Poisson starting..." << std::endl;
 	pcl::Poisson<PointNormal> poisson;
 	poisson.setDepth (7);
-	poisson.setScale(1.0);
+	poisson.setScale(3.0);
 	poisson.setInputCloud(cloud_smoothed_normals);
 	PolygonMesh mesh;
 	poisson.reconstruct (mesh);
