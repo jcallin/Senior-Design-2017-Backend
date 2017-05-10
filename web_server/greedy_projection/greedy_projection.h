@@ -8,6 +8,6 @@
 #ifndef GREEDY_PROJECTION_H
 #define GREEDY_PROJECTION_H
 
-void ProcessCloud(string cloud_path, string mesh_path, bool poisson);
+void ProcessCloud(string cloud_path, string mesh_path, bool poisson, bool single_cloud);
 
 #endif /* GREEDY_PROJECTION_H */
