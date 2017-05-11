@@ -323,7 +323,9 @@ void ProcessCloud(string cloud_path, string mesh_path, bool poisson, bool single
 			return;
 		}
 
+		// Perform post-concatenation processing in case clouds don't line up
 		cloud = RemoveOutliers(cloud);
+		cloud = ExtractLargestCluster(cloud);
 
 		// Rotate the cloud a number of degrees about the x axis to account for varying camera angle
 		// Dont transform, only rotate (use identity transformation matrix)
